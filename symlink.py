@@ -1,6 +1,7 @@
 import os
 import re
 import glob
+from heapq import merge
 
 class SimLink:
     def get_symlinks( dir ):
@@ -10,10 +11,15 @@ class SimLink:
 
         # get folders in directory
         files_in_dir = glob.glob( "{0}/*/".format( dir ) )
+        files_in_dir = list( merge( files_in_dir, glob.glob( "{0}/*.*".format( dir ))))
+
 
         # filter out symlinks
-        sym_links = [ x for x in files_in_dir if os.path.islink( x ) ]
+        sym_links = [ x for x in files_in_dir if os.path.islink(x) == True ]
+
         sym_links = [ x.replace("/","\\") for x in sym_links]
+
+        print( sym_links)
 
         return sym_links
 
@@ -25,7 +31,15 @@ class SimLink:
         if ( os.path.exists( dir )) :
             print("UNLINKING => {0}".format( dir ) )
 
-            res = os.popen( "rmdir {0}".format( dir )).read()
+            print( os.path.isdir( dir))
+            print( os.path.isfile( dir) )
+
+            if os.path.isdir( dir ):
+                res = os.popen( "RMDIR {0}".format( dir )).read()
+            else:
+                print( dir )
+                res = os.popen( "DEL {0}".format( dir )).read()
+
 
             if res != "":
                 print("=> FAILED")
@@ -51,3 +65,16 @@ class SimLink:
         print( "=> {0} => {1}".format( workdrive_path, folder ) )
 
         res = os.symlink( folder, workdrive_path)
+
+    def link_file( file, workdrive):
+
+        file = file.replace('/','\\')
+
+        file_name = file.split( '\\')
+        file_name = file_name[ len( file_name) - 1]
+
+        workdrive_path = f"{workdrive}/{file_name}"
+
+        print( workdrive_path )
+
+        res = os.symlink( file, workdrive_path)

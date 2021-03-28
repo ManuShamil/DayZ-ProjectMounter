@@ -3,10 +3,13 @@ import glob
 from colorama import Fore, Back, Style, init
 import json
 import os
+import tempfile
 
 from symlink import SimLink
 from dependency import Dependency
 from projectfile import ProjectFile
+
+from deploy_template import deploy_template
 
 class Main:
 
@@ -30,6 +33,12 @@ class Main:
         # resolve settings
         self.project_settings["dependencies"] = [ self.resolve_settings(x) for x in self.project_settings["dependencies"]]
 
+        # for global access
+        self.project_settings["project_dir"] = self.project_dir
+        self.project_settings["project_name"] = self.project_name
+        self.project_settings["work_drive"] = self.work_drive
+
+
         print( self.project_settings)
 
         print(f"========================================================\n\
@@ -46,6 +55,8 @@ PROJECT_SETTINGS => { self.project_settings_file}{ Style.RESET_ALL }")
 
         self.create_dayzprojectfile()
         self.create_deploy_batch()
+        self.create_gitignore()
+        self.link_project_files()
 
     def cleanup_previous_project( self ):
 
@@ -136,16 +147,87 @@ PROJECT_SETTINGS => { self.project_settings_file}{ Style.RESET_ALL }")
 
     def create_deploy_batch( self ):
 
-        deploy_cmd = f"""
-CD /D { self.project_dir }
-git add *
-git commit -m "update"
-git push origin dev-live
+        print( f"=====================    CREATING DEPLOY SCRIPT  ================================== ")
 
+        dependency_mods = set()
 
-        """
+        if "dependencies" in self.project_settings:
 
-        print( deploy_cmd )
+            for x in self.project_settings["dependencies"]:
+
+                path = x['path']
+                path_array = path.replace('/','\\').split('\\')
+
+                mod_location = ""
+
+                for folder in path_array:
+                    if folder.lower() == "addons":
+                        break
+
+                    mod_location += folder + '\\'
+
+                mod_location.rstrip('\\')
+
+                dependency_mods.add( mod_location)
+
+        
+        temp_folder = f"{tempfile.gettempdir()}\\DayZProjectMounter"
+        deploy_folder = f"{temp_folder}\\Deploy"
+
+        mod_string = ""
+
+        for x in dependency_mods:
+            mod_string += x.rstrip('\\') + ";"
+
+        mod_string += deploy_folder
+
+        dayz_path = self.project_settings["game_dir"] + "/" + "DayZDiag_x64.exe"
+        deploy_cmd = deploy_template.format( self.project_dir, dayz_path, mod_string, self.project_settings["game_dir"], self.project_settings["profile"] )
+
+        f = open("deploy.bat", "w")
+        f.write( deploy_cmd )
+
+        print( f"=====================    CREATED DEPLOY SCRIPT   ================================== ")
+
+    def create_gitignore( self ):
+
+        if not os.path.exists( '.gitignore'):
+            f = open('.gitignore', 'w')
+            f.write('deploy.bat\ndayz.gproj')
+        else:
+            ignore = open('.gitignore').read().split('\n')
+            ignore = [ x for x in ignore if x != '']
+
+            print( ignore )
+
+            if 'dayz.gproj' not in ignore:
+                ignore.append( 'dayz.gproj' )
+            
+            if 'deploy.bat' not in ignore:
+                ignore.append('deploy.bat')
+
+            txt = ""
+            
+            i = 0
+            for x in ignore:
+
+                txt += x
+
+                if i < len(ignore) - 1:
+                    txt += '\n'
+
+                i +=1 
+
+            f = open('.gitignore', 'w')
+            f.write(txt)          
+
+    def link_project_files( self ):
+
+        files = [ 'dayz.gproj', 'deploy.bat'] 
+
+        for x in files:
+
+            SimLink.link_file( f"{self.project_dir}/{x}", self.work_drive )     
 
 
         

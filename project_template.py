@@ -1,19 +1,19 @@
 project_template = """
-GameProjectClass {
+GameProjectClass {{
     ID "DayZ"
     TITLE "DayZ"
-    Configurations {
-        GameProjectConfigClass PC {
+    Configurations {{
+        GameProjectConfigClass PC {{
             platformHardware PC
 	        skeletonDefinitions "DZ/Anims/cfg/skeletons.anim.xml"
-            FileSystem {
-                FileSystemPathClass {
+            FileSystem {{
+                FileSystemPathClass {{
                     Name "Game Root"
                     Directory "./"
-                }
+                }}
                 {0}
-	        }
-            imageSets {
+	        }}
+            imageSets {{
                 "gui/imagesets/ccgui_enforce.imageset"
                 "gui/imagesets/rover_imageset.imageset"
                 "gui/imagesets/dayz_gui.imageset"
@@ -29,74 +29,74 @@ GameProjectClass {
                 "gui/imagesets/selection.imageset"
                 "gui/imagesets/console_toolbar.imageset"
                 {1}
-            }
-            widgetStyles {
+            }}
+            widgetStyles {{
                 "gui/looknfeel/dayzwidgets.styles" 
                 "gui/looknfeel/widgets.styles"
                 {2}
-            }
-            ScriptModules {
-                ScriptModulePathClass {
+            }}
+            ScriptModules {{
+                ScriptModulePathClass {{
                     Name "core"
-                    Paths {
+                    Paths {{
                         "scripts/1_Core"
                         {3}
-                    }
+                    }}
                     EntryPoint ""
-                }
-                ScriptModulePathClass {
+                }}
+                ScriptModulePathClass {{
                     Name "gameLib"
-                    Paths {
+                    Paths {{
                         "scripts/2_GameLib"
                         {4}
-                    }
+                    }}
                     EntryPoint ""
-                }
-                ScriptModulePathClass {
+                }}
+                ScriptModulePathClass {{
                     Name "game"
-                    Paths {
+                    Paths {{
                         "scripts/3_Game"
                         {5}
-                    }
+                    }}
                     EntryPoint "CreateGame"
-                }
-                ScriptModulePathClass {
+                }}
+                ScriptModulePathClass {{
                     Name "world"
-                    Paths {
+                    Paths {{
                         "scripts/4_World"
                         {6}
-                    }
+                    }}
                     EntryPoint ""
-                }
-                ScriptModulePathClass {
+                }}
+                ScriptModulePathClass {{
                     Name "mission"
-                    Paths {
+                    Paths {{
                         "scripts/5_Mission"
                         {7}
-                    }
+                    }}
                     EntryPoint "CreateMission"
-                }
-                ScriptModulePathClass {
+                }}
+                ScriptModulePathClass {{
                     Name "workbench"
-                    Paths {
+                    Paths {{
                         "scripts/editor/Workbench"
                         "scripts/editor/plugins"
                         {8}
-                    }
+                    }}
                     EntryPoint ""
-                } 
-            }
-        }
-        GameProjectConfigClass XBOX_ONE {
+                }}
+            }}
+        }}
+        GameProjectConfigClass XBOX_ONE {{
             platformHardware XBOX_ONE
-        }
-        GameProjectConfigClass PS4 {
+        }}
+        GameProjectConfigClass PS4 {{
             platformHardware PS4
-        }
-        GameProjectConfigClass LINUX {
+        }}
+        GameProjectConfigClass LINUX {{
             platformHardware LINUX
-        }
-    }
-}
+        }}
+    }}
+}}
 
 """
