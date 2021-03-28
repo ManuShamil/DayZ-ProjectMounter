@@ -13,6 +13,12 @@ TASKKILL /F /IM DayZDiag_x64.exe
 
 TIMEOUT 2
 
+CD /D "C:/Users\manu_/Documents/GitHub/DayZ-ProjectMounter"
+
+py deploy.py \"%PROJECT_DIR%\"
+
+CD /D GAME_DIR
+
 REM "CLEANUP LOGS"
 
 DEL /s /q /f "%GAME_DIR%\%PROFILE%\*.rpt"
