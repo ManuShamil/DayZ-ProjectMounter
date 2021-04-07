@@ -31,9 +31,11 @@ class Main:
 
     def clear_deploy_folder( self ):
 
-        shutil.rmtree( self.deploy_folder )
+        if os.path.exists( self.deploy_folder):
 
-        os.mkdir( self.deploy_folder )
+            shutil.rmtree( self.deploy_folder )
+
+        os.makedirs( self.deploy_folder)
 
     def pack_pbos( self ):
 

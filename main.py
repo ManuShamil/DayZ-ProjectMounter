@@ -4,6 +4,7 @@ from colorama import Fore, Back, Style, init
 import json
 import os
 import tempfile
+import pathlib
 
 from symlink import SimLink
 from dependency import Dependency
@@ -182,7 +183,11 @@ PROJECT_SETTINGS => { self.project_settings_file}{ Style.RESET_ALL }")
         mod_string += deploy_folder
 
         dayz_path = self.project_settings["game_dir"] + "/" + "DayZDiag_x64.exe"
-        deploy_cmd = deploy_template.format( self.project_dir, dayz_path, mod_string, self.project_settings["game_dir"], self.project_settings["profile"] )
+
+        cur_dir = pathlib.Path(__file__).parent.absolute()
+
+
+        deploy_cmd = deploy_template.format( self.project_dir, dayz_path, mod_string, self.project_settings["game_dir"], self.project_settings["profile"], cur_dir )
 
         f = open("deploy.bat", "w")
         f.write( deploy_cmd )

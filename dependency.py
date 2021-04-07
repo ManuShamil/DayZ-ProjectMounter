@@ -75,6 +75,12 @@ class Dependency:
             print( f"MOUNTING => { path }\nTYPE => { type }" )
 
             if type == "pbo":
+                # do not mount if noLoad is set to true
+
+                if "noLoad" in x :
+                    if x["noLoad"] == True:
+                        continue
+
                 # mount each pbo
                 self.mount_pbo( extracted_folder, x )
 

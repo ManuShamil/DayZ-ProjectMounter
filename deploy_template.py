@@ -13,7 +13,7 @@ TASKKILL /F /IM DayZDiag_x64.exe
 
 TIMEOUT 2
 
-CD /D "C:/Users\manu_/Documents/GitHub/DayZ-ProjectMounter"
+CD /D "{5}"
 
 py deploy.py \"%PROJECT_DIR%\"
 
@@ -28,9 +28,13 @@ DEL /s /q /f "%GAME_DIR%\%PROFILE%\*.mdmp"
 
 
 
-\"{1}\" -server \"-profiles=%PROFILE%\" \
+START "" \"{1}\" -server \"-profiles=%PROFILE%\" \
 "-mod={2}" \
 -port=2302 -config=serverDZ.cfg
+
+START "" \"{1}\" "-mod={2}" \
+-port=2302 -connect=127.0.0.1 -name=%PROFILE%
+
 
 
 """
