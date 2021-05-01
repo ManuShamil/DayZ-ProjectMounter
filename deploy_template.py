@@ -28,11 +28,11 @@ DEL /s /q /f "%GAME_DIR%\%PROFILE%\*.mdmp"
 
 
 
-START "" \"{1}\" -server \"-profiles=%PROFILE%\" \
+START "" \"{1}\" -server \"-profiles=%PROFILE%\" -filePatching \
 "-mod={2}" \
 -port=2302 -config=serverDZ.cfg
 
-START "" \"{1}\" "-mod={2}" \
+START "" \"{1}\" "-mod={2}" -filePatching \
 -port=2302 -connect=127.0.0.1 -name=%PROFILE%
 
 
