@@ -23,7 +23,7 @@ class Main:
         self.project_dir = sys.argv[1]
 
         self.temp_folder = f"{tempfile.gettempdir()}\\DayZProjectMounter"
-        self.deploy_folder = f"{self.temp_folder}\\Deploy\\Addons"
+        self.deploy_folder = f"{self.temp_folder}\\Deploy"
 
         self.clear_deploy_folder()
 
@@ -42,8 +42,8 @@ class Main:
         folders = self.get_project_foldernames()
 
         for x in folders:
-
-            subprocess.call(["MakePbo.exe", '-PsW', '-X=thumbs.db,*.h,*.dep,*.cpp,*.bak,*.png,*.log,*.pew, *.hpp,source,*.tga,*.bat', f"P:/{ x }", "/".join([ self.deploy_folder, x + '.pbo'])])
+            
+            subprocess.call(["pboProject.exe", f"P:/{ x }",  f"-M={self.deploy_folder}", "-Stop", "+Clean", "-P" ])
 
 
 
