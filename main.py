@@ -187,7 +187,7 @@ PROJECT_SETTINGS => { self.project_settings_file}{ Style.RESET_ALL }")
         cur_dir = pathlib.Path(__file__).parent.absolute()
 
 
-        deploy_cmd = deploy_template.format( self.project_dir, dayz_path, mod_string, self.project_settings["game_dir"], self.project_settings["profile"], cur_dir )
+        deploy_cmd = deploy_template.format( self.project_dir, dayz_path, mod_string, self.project_settings["game_dir"], self.project_settings["profile"], cur_dir, self.project_settings["work_drive"] )
 
         f = open("deploy.bat", "w")
         f.write( deploy_cmd )

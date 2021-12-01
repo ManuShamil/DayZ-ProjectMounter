@@ -5,9 +5,6 @@ SET \"GAME_DIR={3}\"
 SET \"PROFILE={4}\"
 
 CD /D %PROJECT_DIR%
-git add *
-git commit -m "update"
-git push origin dev-live
 
 TASKKILL /F /IM DayZDiag_x64.exe
 
@@ -35,6 +32,6 @@ START "" \"{1}\" -server \"-profiles=%PROFILE%\" -filePatching \
 START "" \"{1}\" "-mod={2}" -filePatching \
 -port=2302 -connect=127.0.0.1 -name=%PROFILE%
 
-
+{6}
 
 """
