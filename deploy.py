@@ -42,8 +42,19 @@ class Main:
         folders = self.get_project_foldernames()
 
         for x in folders:
-            
-            subprocess.call(["pboProject.exe", f"P:/{ x }",  f"-M={self.deploy_folder}", "-Stop", "+Clean", "-P" ])
+
+            try:
+                cmd_str = ["pboProject.exe", f"P:\\{ x }",  f"-M={self.deploy_folder}", "-Stop", "+Clean", "-P" ]
+
+                print( " ".join(cmd_str) )
+                
+                subprocess.call(cmd_str)
+            except FileNotFoundError as e:
+
+                print(e.filename)
+
+
+
 
 
 

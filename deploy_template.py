@@ -30,7 +30,7 @@ START "" \"{1}\" -server \"-profiles=%PROFILE%\" -filePatching \
 -port=2302 -config=serverDZ.cfg
 
 START "" \"{1}\" "-mod={2}" -filePatching \
--port=2302 -connect=127.0.0.1 -name=%PROFILE%
+-port=2302 -connect=127.0.0.1 -name=%PROFILE% -window
 
 {6}
 
