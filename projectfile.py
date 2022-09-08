@@ -62,8 +62,8 @@ class ProjectFile:
 
         project_dir = self.project_settings["project_dir"]
 
-        config = project_template.format( self.file_paths, self.image_files, self.widget_files, self.core_files, self.gamelib_files, self.game_files, self.world_files, self.mission_files, self.workbench_files)
-
+        #config = project_template.format( self.file_paths, self.image_files, self.widget_files, self.core_files, self.gamelib_files, self.game_files, self.world_files, self.mission_files, self.workbench_files)
+        config = project_template.format( "", self.image_files, self.widget_files, self.core_files, self.gamelib_files, self.game_files, self.world_files, self.mission_files, self.workbench_files)
         f = open( f"{ project_dir}/dayz.gproj", "w")
         f.write( config )
 
