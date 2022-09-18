@@ -101,7 +101,7 @@ class Dependency:
 
         print(f"============> EXTRACTING PBO => {to}\n")
 
-        result = os.popen( f"ExtractPboDos.exe -P \"{pbo_path}\" \"{to}\"").read()
+        result = os.popen( f"ExtractPbo.exe -P \"{pbo_path}\" \"{to}\"").read()
         
 
         print(f"\n")
