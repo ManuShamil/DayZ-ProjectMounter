@@ -44,11 +44,10 @@ class Main:
         for x in folders:
 
             try:
-                cmd_str = ["pboProject.exe", f"P:\\{ x }",  f"-M={self.deploy_folder}", "-Stop", "+Clean", "-P" ]
-
-                print( " ".join(cmd_str) )
+                cmd_str = f"FileBank -dst {self.deploy_folder}\\addons P:\\{x}"
+                print(cmd_str)
                 
-                subprocess.call(cmd_str)
+                subprocess.call(cmd_str, shell=True)
             except FileNotFoundError as e:
 
                 print(e.filename)
