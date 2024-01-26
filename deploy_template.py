@@ -29,6 +29,8 @@ START "" \"{1}\" -server \"-profiles=%PROFILE%\" -filePatching \
 "-mod={2}" \
 -port=2302 -config=serverDZ.cfg
 
+TIMEOUT 2
+
 START "" \"{1}\" "-mod={2}" -filePatching \
 -port=2302 -connect=127.0.0.1 -name=%PROFILE% -window
 
