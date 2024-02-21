@@ -44,6 +44,9 @@ class Main:
         for x in folders:
 
             try:
+                if not os.path.exists( f"P:\\{x}"):
+
+                    continue
                 cmd_str = f"FileBank -dst {self.deploy_folder}\\addons P:\\{x}"
                 print(cmd_str)
                 
