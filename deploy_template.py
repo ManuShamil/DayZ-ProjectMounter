@@ -32,7 +32,7 @@ START "" \"{1}\" -server \"-profiles=%PROFILE%\" -filePatching \
 TIMEOUT 2
 
 START "" \"{1}\" "-mod={2}" -filePatching \
--port=2302 -connect=127.0.0.1 -name=%PROFILE% -window  -newErrorsAreWarnings
+-port=2302 -connect=127.0.0.1 -name=%PROFILE% -window -newErrorsAreWarnings=1
 
 {6}
 
